@@ -34,7 +34,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     public String userID;
     private String userPassword;
-    private String userGender;
+    private String UserGender;
     private String userMajor;
     private String userEmail;
     private String userStudentID;
@@ -67,12 +67,12 @@ public class RegisterActivity extends AppCompatActivity {
         //라디오 버튼 초기화 및 클릭 이벤트
         RadioGroup genderGroup = (RadioGroup) findViewById(R.id.genderGroup);
         int genderGroupID = genderGroup.getCheckedRadioButtonId();//남자인지 여자인지 확인하는 ID값
-        userGender = ((RadioButton) findViewById(genderGroupID)).getText().toString();//현재 선택된 genderID를 매칭시키고 성별을 string처리
+        UserGender = ((RadioButton) findViewById(genderGroupID)).getText().toString();//현재 선택된 genderID를 매칭시키고 성별을 string처리
         genderGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 RadioButton genderButton = (RadioButton) findViewById(i);
-                userGender = genderButton.getText().toString();
+                UserGender = genderButton.getText().toString();
             }
         });
 
@@ -81,13 +81,13 @@ public class RegisterActivity extends AppCompatActivity {
         validateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String userID = idText.getText().toString();
+                String UserId = idText.getText().toString();
                 //validate체크가 이루어진 상태면 함수 바로 종료
                 if (validate) {
                     return;
                 }
                 //ID값에 아무것도 입력하지 않았을 때, 예외발생시켜 메시지처리
-                if (userID.equals("")) {
+                if (UserId.equals("")) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
                     dialog = builder.setMessage("아이디는 빈 칸일 수 없습니다.")
                             .setPositiveButton("확인", null)
@@ -95,9 +95,9 @@ public class RegisterActivity extends AppCompatActivity {
                     dialog.show();
                     return;
                 }
-                String url = "http://qoxodnjs.cafe24.com/UserValidate.php";
+                String url = "http://ikmin7373.dothome.co.kr/UserValidate.php";
                 Map<String,String> params = new HashMap<String, String>();
-                params.put("userID", userID);
+                params.put("UserId", UserId);
 
                 JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params),
                         new Response.Listener<JSONObject>() {
@@ -152,13 +152,13 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //모든 값들을 가져온다.
-                String userID = idText.getText().toString();
-                String userPassword = passwordText.getText().toString();
-                String userMajor = spinner.getSelectedItem().toString();
-                String userEmail = emailText.getText().toString();
-                String userStudentID = student_idText.getText().toString();
-                String userName = nameText.getText().toString();
-                String userPhone = phoneText.getText().toString();
+                String UserId = idText.getText().toString();
+                String UserPwd = passwordText.getText().toString();
+                String UserMajor = spinner.getSelectedItem().toString();
+                String UserEmail = emailText.getText().toString();
+                String StudentId = student_idText.getText().toString();
+                String UserName = nameText.getText().toString();
+                String PhoneNumber = phoneText.getText().toString();
 
                 //중복 체크가 되어있지 않다면
                 if(!validate){
@@ -170,8 +170,8 @@ public class RegisterActivity extends AppCompatActivity {
                     return;
                 }
                 //빈칸이 있을 때
-                if(userID.equals("")||userPassword.equals("")|| userMajor.equals("")||userEmail.equals("")||userGender.equals("")||
-                        userStudentID.equals("")||userName.equals("")||userPhone.equals(""))
+                if(UserId.equals("")||UserPwd.equals("")|| UserMajor.equals("")||UserEmail.equals("")||UserGender.equals("")||
+                        StudentId.equals("")||UserName.equals("")||PhoneNumber.equals(""))
                 {
                     AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
                     dialog = builder.setMessage("빈 칸 없이 입력해주세요.")
@@ -181,17 +181,25 @@ public class RegisterActivity extends AppCompatActivity {
                     return;
                 }
 
-                String url = "http://qoxodnjs.cafe24.com/UserRegister.php";
+                String url = "http://ikmin7373.dothome.co.kr/Register.php";
 
                 Map<String,String> params = new HashMap<String, String>();
-                params.put("userID", userID);
-                params.put("userPassword", userPassword);
-                params.put("userGender", userGender);
-                params.put("userMajor", userMajor);
-                params.put("userEmail", userEmail);
-                params.put("userStudentID", userStudentID);
-                params.put("userName", userName);
-                params.put("userPhone", userPhone);
+                params.put("UserId", UserId);
+                params.put("UserPwd", UserPwd);
+                params.put("UserGender", UserGender);
+                params.put("UserMajor", UserMajor);
+                params.put("UserEmail", UserEmail);
+                params.put("StudentId", StudentId);
+                params.put("UserName", UserName);
+                params.put("PhoneNumber", PhoneNumber);
+                Log.d("param", UserId);
+                Log.d("param", UserPwd);
+                Log.d("param", UserGender);
+                Log.d("param", UserMajor);
+                Log.d("param", UserEmail);
+                Log.d("param", StudentId);
+                Log.d("param", UserName);
+                Log.d("param", PhoneNumber);
 
                 JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params),
                         new Response.Listener<JSONObject>() {
@@ -218,8 +226,6 @@ public class RegisterActivity extends AppCompatActivity {
                                 } catch (Exception e) {//오류발생시
                                     e.printStackTrace();
                                 }
-                                //   Log.v("TAG", "변수의 값"+name.toString());
-                                //drawList();
                             }
                         },
                         new Response.ErrorListener() {

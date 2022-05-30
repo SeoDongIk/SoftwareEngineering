@@ -51,7 +51,7 @@ public class Fragment2 extends Fragment {
             remain_notebook = (TextView) v.findViewById(R.id.number_remain_2);
             remain_umbrella = (TextView) v.findViewById(R.id.number_remain_3);
             remain_phone = (TextView) v.findViewById(R.id.number_remain_4);
-            String url = "http://qoxodnjs.cafe24.com/ItemRest.php";
+            String url = "http://ikmin7373.dothome.co.kr/ItemRest.php";
             Map<String, String> parameters = new HashMap<String, String>();
 
             final JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(parameters),

@@ -27,8 +27,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private AlertDialog dialog;
     public static Context context_main;
-    public String userID;
-    public String userPassword;
+    public String UserId;
+    public String UserPwd;
     public EditText idText;
     public EditText passwordText;
     public Button loginButton;
@@ -60,16 +60,16 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                userID = idText.getText().toString();
-                userPassword = passwordText.getText().toString();
+                UserId = idText.getText().toString();
+                UserPwd = passwordText.getText().toString();
 
-                String url = "http://qoxodnjs.cafe24.com/UserLogin.php";
+                String url = "http://ikmin7373.dothome.co.kr/Login.php";
 
                 Map<String,String> parameters = new HashMap<String, String>();
-                parameters.put("userID", userID);
-                parameters.put("userPassword", userPassword);
+                parameters.put("UserId", UserId);
+                parameters.put("UserPwd", UserPwd);
                 //빈칸이 있을 때
-                if(userID.equals("")||userPassword.equals(""))
+                if(UserId.equals("")||UserPwd.equals(""))
                 {
                     AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
                     dialog = builder.setMessage("빈 칸 없이 입력해주세요.")

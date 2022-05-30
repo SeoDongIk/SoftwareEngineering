@@ -42,6 +42,7 @@ public class Fragment4 extends Fragment {
     public String itemValue;
     public String getTime;
     public String getTime2;
+    public Integer x;
     Button button;
 
     @Nullable
@@ -54,7 +55,7 @@ public class Fragment4 extends Fragment {
         returnT = (TextView) v.findViewById(R.id.txt2);
         button=(Button) v.findViewById(R.id.rentalB);
 
-        String[] items = {"대여하실 물품을 선택해주세요.","마우스", "노트북충전기", "우산", "휴대폰충전기"};
+        String[] items = {"대여하실 시간을 선택해주세요.","1시간", "2시간", "3시간", "4시간"};
         Spinner spinner = (Spinner) v.findViewById(R.id.spinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_item, items);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -71,13 +72,17 @@ public class Fragment4 extends Fragment {
                 if(position!=0){//힌트로 띄워놓은 항목 제외
                     if(position==1)
                     {
-                        background.setBackgroundResource(R.drawable.mouse);
+                        background.setBackgroundResource(R.drawable.notebookcharger);
+                        x = 1;
                     }else if(position==2){
                         background.setBackgroundResource(R.drawable.notebookcharger);
+                        x = 2;
                     }else if(position==3){
-                        background.setBackgroundResource(R.drawable.umbrella1);
+                        background.setBackgroundResource(R.drawable.notebookcharger);
+                        x = 3;
                     }else if(position==4){
-                        background.setBackgroundResource(R.drawable.phonecharger);
+                        background.setBackgroundResource(R.drawable.notebookcharger);
+                        x = 4;
                     }
                     Toast.makeText(getActivity(), itemValue+"(이)가 선택되었습니다.", Toast.LENGTH_SHORT).show();
                 }
@@ -92,9 +97,9 @@ public class Fragment4 extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "http://qoxodnjs.cafe24.com/ItemRental.php";
+                String url = "http://ikmin7373.dothome.co.kr/ItemRental.php";
                 Map<String, String> parameters = new HashMap<String, String>();
-                parameters.put("userID", ((LoginActivity) LoginActivity.context_main).userID);
+                parameters.put("UserId", ((LoginActivity) LoginActivity.context_main).UserId);
                 parameters.put("itemName", itemValue);
                 parameters.put("itemRentalDate", getTime);
                 parameters.put("itemReturnDate", getTime2);
@@ -165,7 +170,7 @@ public class Fragment4 extends Fragment {
                     Calendar cal = Calendar.getInstance();
                     Date date =simpleDate.parse(getTime);
                     cal.setTime(date);
-                    cal.add(Calendar.DATE, 2); //대여가능 기간이 2일이라고 가정
+                    cal.add(Calendar.HOUR, x); //대여가능 기간이 2일이라고 가정
                     Date date2=new Date(cal.getTimeInMillis());
                     getTime2=simpleDate.format(date2);
                     returnT.setText("~"+getTime2); // 마감 날짜, 시각을 사용자에게 보여줌

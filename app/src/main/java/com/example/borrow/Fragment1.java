@@ -33,11 +33,12 @@ public class Fragment1 extends Fragment {
     private ListView listview;
     private ListViewAdapter adapter;
 
-    public TextView student_name;
-    public TextView student_id;
+    public TextView UserName;
+    public TextView StudentId;
     public TextView item_name;
     public TextView item_rental_date;
     public TextView item_return_date;
+    public TextView charger_number;
 
     int i=3;
     String result;
@@ -45,6 +46,8 @@ public class Fragment1 extends Fragment {
 
     String a,b,c,d,e;
     String a2,b2,c2,d2,e2;
+    String x_number;
+    Integer real_number;
 
     String[] array;
     String[] array2;
@@ -56,29 +59,17 @@ public class Fragment1 extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         v = (ViewGroup) inflater.inflate(R.layout.fragment1, container, false);
 
-        //Adapter 생성
-        adapter = new ListViewAdapter();
-
-        //리스트뷰 참조 및 Adapter
-        listview = (ListView) v.findViewById(R.id.item_list_view);
-        listview.setAdapter(adapter);
-
         //텍스트뷰 초기화
-        student_id = (TextView) v.findViewById(R.id.student_id);
-        student_name = (TextView) v.findViewById(R.id.student_name);
+        StudentId = (TextView) v.findViewById(R.id.student_id);
+        UserName = (TextView) v.findViewById(R.id.student_name);
         item_name = (TextView) v.findViewById(R.id.item_name);
         item_rental_date = (TextView) v.findViewById(R.id.item_rental_date);
         item_return_date = (TextView) v.findViewById(R.id.item_return_date);
+        charger_number = (TextView) v.findViewById(R.id.charger_number);
 
-        String url = "http://qoxodnjs.cafe24.com/UserInfo.php";
+        String url = "http://ikmin7373.dothome.co.kr/UserInfo.php";
         Map<String, String> parameters = new HashMap<String, String>();
-        parameters.put("userID", ((LoginActivity) LoginActivity.context_main).userID);
-        parameters.put("itemName", "우산");
-
-        //휴대폰충전기
-        //우산
-        //마우스
-        //노트북충전기
+        parameters.put("UserId", ((LoginActivity) LoginActivity.context_main).UserId);
 
         final JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(parameters),
                 new Response.Listener<JSONObject>() {
@@ -89,40 +80,22 @@ public class Fragment1 extends Fragment {
                             //result = [{"userID":"bae","userStudentID":""}]
                             if (jsonResponse.getString("result").isEmpty() == false) {
                                 result = jsonResponse.getString("result");
-                                result2 = jsonResponse.getString("result2");
-                                Log.d("result2", result2);
+                                Log.d("result", result);
+
                                 //=============사용자 이름, 학번 출력=============//
                                 array = result.split(",");
                                 a = array[0];
                                 b = array[1];
+                                x_number = array[2].substring(1,2);
+                                real_number = Integer.parseInt(x_number);
+                                real_number = 10 - real_number;
+                                x_number = real_number.toString();
                                 a2 = a.substring(14, a.length() - 1);
-                                b2 = b.substring(17, b.length() - 3);
-                                student_id.setText(b2);
-                                student_name.setText(a2);
+                                b2 = b.substring(13, b.length() - 1);
+                                charger_number.setText(x_number);
+                                StudentId.setText(b2);
+                                UserName.setText(a2);
                                 //=============대여물품정보 출력=============//
-                                array2 = result2.split(",");
-                                c = array2[0];
-                                d = array2[1];
-                                e = array2[2];
-                                c2 = c.substring(14, c.length() - 1);
-                                d2 = d.substring(18, d.length() - 1);
-                                e2 = e.substring(18, e.length() - 2);
-                                adapter.addItem(c2, d2, e2);  //listView에 데이터 추가
-                                adapter.notifyDataSetChanged(); //listView 갱신
-                                //item, item2 초기화(array2의 length만큼)
-                                item = array2;
-                                item2 = array2;
-                                //=============대여물품이 2개 이상 일 때=======//
-                                for(i=3;i<array2.length;i=i+3) {
-                                    item[i] = array2[i];
-                                    item2[i] = item[i].substring(13, item[i].length() - 1);
-                                    item[i + 1] = array2[i + 1];
-                                    item2[i + 1] = item[i + 1].substring(18, item[i + 1].length() - 1);
-                                    item[i + 2] = array2[i + 2];
-                                    item2[i + 2] = item[i + 2].substring(18, item[i + 2].length() - 2);
-                                    adapter.addItem(item[i], item[i + 1], item[i + 2]);
-                                    adapter.notifyDataSetChanged();
-                                }
                             } else {
                                 result = jsonResponse.getString("result2");
                             }

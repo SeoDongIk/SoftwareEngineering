@@ -38,6 +38,7 @@ public class Fragment5 extends Fragment {
     private TextView returnT;
     Button button;
     public String itemValue;
+    public String x;
 
     @Nullable
     @Override
@@ -49,58 +50,13 @@ public class Fragment5 extends Fragment {
         returnT = (TextView) v.findViewById(R.id.txt2);
         button=(Button) v.findViewById(R.id.returnB);
 
-        String[] items = {"반납하실 물품을 선택해주세요.","마우스", "노트북충전기", "우산", "휴대폰충전기"};
-        Spinner spinner = (Spinner) v.findViewById(R.id.spinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_item, items);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setSelection(0);
-
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() { //spinner의 아이템이 클릭되었을 때
-            @Override
-            public void onItemSelected(AdapterView adapterView, View view, int position, long id) {
-                itemValue = (String) adapterView.getItemAtPosition(position);
-                if (position==0){
-                    background.setBackgroundResource(R.drawable.return_box);
-                }
-                if(position!=0){//힌트로 띄워놓은 항목 제외
-                    if(position==1)
-                    {
-                        background.setBackgroundResource(R.drawable.mouse);
-                    }else if(position==2){
-                        background.setBackgroundResource(R.drawable.notebookcharger);
-                    }else if(position==3){
-                        background.setBackgroundResource(R.drawable.umbrella1);
-                    }else if(position==4){
-                        background.setBackgroundResource(R.drawable.phonecharger);
-                    }
-                    Toast.makeText(getActivity(), itemValue+"(이)가 선택되었습니다.", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                }
-            }
-            @Override
-            public void onNothingSelected(AdapterView adapterView){ //아무것도 선택되지 않았을 때
-            }
-        });
-
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "http://qoxodnjs.cafe24.com/ItemReturn.php";
+                String url = "http://ikmin7373.dothome.co.kr/ItemReturn.php";
                 Map<String, String> parameters = new HashMap<String, String>();
-                parameters.put("userID", ((LoginActivity) LoginActivity.context_main).userID);
-                parameters.put("itemName", itemValue);
-                if (itemValue!="반납하실 물품을 선택해주세요."){
-                    Toast.makeText(getActivity(), itemValue + " 반납신청이 완료되었습니다.", Toast.LENGTH_SHORT).show();
-                }else {
-                    Toast.makeText(getActivity(), " 반납하실 물품을 선택해주세요.", Toast.LENGTH_SHORT).show();
-                }
-
-                //휴대폰충전기
-                //우산
-                //마우스
-                //노트북충전기
+                parameters.put("UserId", ((LoginActivity) LoginActivity.context_main).UserId);
+                Toast.makeText(getActivity(), " 반납이 완료되었습니다.", Toast.LENGTH_SHORT).show();
 
                 final JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(parameters),
                         new Response.Listener<JSONObject>() {
@@ -164,7 +120,7 @@ public class Fragment5 extends Fragment {
                     String getTime2=simpleDate.format(date2);
                     returnT.setText(getTime2); // 반납 날짜, 시각
  */
-                    returnT.setText("~대여했던 물품의 마감 일시");
+                    returnT.setText("테스트 중");
                     ////////////////////////////////////////////////////////////////////////////////
                     //데이터베이스에서 대여한 물품의 마감 일시를 가져와서 띄워줘야함
                     ////////////////////////////////////////////////////////////////////////////////

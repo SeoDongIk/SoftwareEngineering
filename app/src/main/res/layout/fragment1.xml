@@ -107,58 +107,17 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:paddingTop="5dp"
-                android:text="예약 품목"
+                android:text="남아있는 충전기의 개수"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="90dp"
-                android:layout_weight="8">
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="30dp"
-                            android:layout_weight="6"
-                            android:gravity="center"
-                            android:text="물품" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="30dp"
-                            android:layout_weight="5"
-                            android:gravity="center"
-                            android:text="대여일" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="30dp"
-                            android:layout_weight="5"
-                            android:gravity="center"
-                            android:text="반납일" />
-                    </LinearLayout>
-
-                    <ListView
-                        android:id="@+id/item_list_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="249dp" />
-                </LinearLayout>
-            </ScrollView>
-
             <TextView
+                android:text="10"
+                android:textSize="150dp"
+                android:gravity="center"
+                android:id="@+id/charger_number"
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
+                android:layout_height="200dp"
                 android:layout_weight="1" />
 
 

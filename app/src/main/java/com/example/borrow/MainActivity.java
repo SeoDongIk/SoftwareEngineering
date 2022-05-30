@@ -14,7 +14,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     Fragment1 fragment1;
-    Fragment2 fragment2;
     Fragment4 fragment4;
     Fragment5 fragment5;
 
@@ -30,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
 
         //프래그먼트 생성
         fragment1 = new Fragment1();
-        fragment2 = new Fragment2();
         fragment4= new Fragment4();
         fragment5 = new Fragment5();
 
@@ -44,19 +42,15 @@ public class MainActivity extends AppCompatActivity {
                 switch (menuItem.getItemId()){
                     //menu_bottom.xml에서 지정해줬던 아이디 값을 받아와서 각 아이디값마다 다른 이벤트를 발생시킵니다.
                     case R.id.tab1:{
-                        getSupportFragmentManager().beginTransaction() .replace(R.id.main_layout,fragment1).commitAllowingStateLoss();
-                        return true;
-                    }
-                    case R.id.tab2:{
-                        getSupportFragmentManager().beginTransaction() .replace(R.id.main_layout,fragment2).commitAllowingStateLoss();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.main_layout,fragment1).commitAllowingStateLoss();
                         return true;
                     }
                     case R.id.tab4:{
-                        getSupportFragmentManager().beginTransaction() .replace(R.id.main_layout,fragment4).commitAllowingStateLoss();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.main_layout,fragment4).commitAllowingStateLoss();
                         return true;
                     }
                     case R.id.tab5:{
-                        getSupportFragmentManager().beginTransaction() .replace(R.id.main_layout,fragment5).commitAllowingStateLoss();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.main_layout,fragment5).commitAllowingStateLoss();
                         return true;
                     }
                     default:
