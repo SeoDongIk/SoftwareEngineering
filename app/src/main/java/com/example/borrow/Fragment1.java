@@ -78,27 +78,26 @@ public class Fragment1 extends Fragment {
                         try {   //밑에서 Request가 보내지고 결과로 온 Reponse가 JsonResponse를 통해 다뤄진다.
                             JSONObject jsonResponse = response;
                             //result = [{"userID":"bae","userStudentID":""}]
-                            if (jsonResponse.getString("result").isEmpty() == false) {
-                                result = jsonResponse.getString("result");
-                                Log.d("result", result);
+                            result = jsonResponse.getString("result");
+                            Log.d("result", result);
 
-                                //=============사용자 이름, 학번 출력=============//
-                                array = result.split(",");
-                                a = array[0];
-                                b = array[1];
-                                x_number = array[2].substring(1,2);
-                                real_number = Integer.parseInt(x_number);
-                                real_number = 10 - real_number;
-                                x_number = real_number.toString();
-                                a2 = a.substring(14, a.length() - 1);
-                                b2 = b.substring(13, b.length() - 1);
-                                charger_number.setText(x_number);
-                                StudentId.setText(b2);
-                                UserName.setText(a2);
-                                //=============대여물품정보 출력=============//
-                            } else {
-                                result = jsonResponse.getString("result2");
-                            }
+                            //=============사용자 이름, 학번 출력=============//
+                            array = result.split(",");
+                            a = array[0];
+                            b = array[1];
+                            a2 = a.substring(14, a.length() - 1);
+                            b2 = b.substring(13, b.length() - 3);
+                            StudentId.setText(b2);
+                            UserName.setText(a2);
+
+                            result2 = jsonResponse.getString("result2");
+                            Log.d("result2", result2);
+
+                            x_number = result2.substring(11,12);
+                            real_number = Integer.parseInt(x_number);
+                            real_number = 10 - real_number;
+                            x_number = real_number.toString();
+                            charger_number.setText(x_number);
 
 
                         } catch (Exception e)//예외처리
